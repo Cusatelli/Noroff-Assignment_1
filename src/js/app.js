@@ -14,6 +14,8 @@ const computerSelectInfoElement = document.getElementById("computer-select-info"
 let computers = [];
 let cart = [];
 let totalPrice = 0.0;
+let workBalance = 0.0;
+let bankBalance = 0.0;
 
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
     .then(response => response.json())
@@ -41,12 +43,20 @@ const handleGetLoanButtonEvent = e => {
     alert("I want to get a loan!");
 }
 
-const handleBankButtonEvent = e => {
-    alert("Bank Button");
+const setBalance = (element, amount) => {
+    element.innerText = amount + " kr";
 }
 
 const handleWorkButtonEvent = e => {
-    alert("Work Button");
+    workBalance += 100;
+    setBalance(workBalanceElement, workBalance);
+}
+
+const handleBankButtonEvent = e => {
+    bankBalance += workBalance;
+    workBalance = 0;
+    setBalance(workBalanceElement, workBalance);
+    setBalance(bankBalanceElement, bankBalance);
 }
 
 const handleBuyNowButtonEvent = e => {
