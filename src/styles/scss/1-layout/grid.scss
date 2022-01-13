@@ -1,0 +1,28 @@
+
+.grid {
+    width: fit-content; // Center Grid
+    margin-inline: auto;
+    margin-block-start: 2rem;
+
+    display: grid;
+    grid-template: 
+        "bank work laptops"
+        "selected selected selected";
+    gap: 0.2rem;
+
+    #bank {
+        grid-area: bank;
+    }
+
+    #work {
+        grid-area: work;
+    }
+
+    #computer-select {
+        grid-area: laptops;
+    }
+
+    #computer-info {
+        grid-area: selected;
+    }
+}

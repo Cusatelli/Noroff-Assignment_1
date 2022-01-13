@@ -1,0 +1,13 @@
+@import '0-normalize/normalize';
+
+@import '1-layout/grid';
+@import '1-layout/container';
+@import '1-layout/buttons';
+
+body {
+    background-color: rgb(90, 103, 112);
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+}

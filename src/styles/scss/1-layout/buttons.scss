@@ -1,0 +1,21 @@
+
+button {
+    max-width: 100%;
+
+    display: inline;
+
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 0.25rem;
+
+    &#bank-button,
+    &#work-button {
+        width: 49.5%;
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

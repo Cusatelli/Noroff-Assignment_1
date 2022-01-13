@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.grid {
+  width: fit-content;
+  margin-inline: auto;
+  margin-block-start: 2rem;
+  display: grid;
+  grid-template: "bank work laptops" "selected selected selected";
+  gap: 0.2rem;
+}
+.grid #bank {
+  grid-area: bank;
+}
+.grid #work {
+  grid-area: work;
+}
+.grid #computer-select {
+  grid-area: laptops;
+}
+.grid #computer-info {
+  grid-area: selected;
+}
+
+.container {
+  background-color: #FFF;
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+.container .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.container .balance-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.container .balance-container .title {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+button {
+  max-width: 100%;
+  display: inline;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+button#bank-button, button#work-button {
+  width: 49.5%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+body {
+  background-color: #5a6770;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+/*# sourceMappingURL=main.css.map */
