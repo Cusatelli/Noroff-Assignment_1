@@ -6,7 +6,7 @@
 }
 
 .grid {
-  width: fit-content;
+  width: 60rem;
   margin-inline: auto;
   margin-block-start: 2rem;
   display: grid;
@@ -15,28 +15,43 @@
 }
 .grid #bank {
   grid-area: bank;
+  width: 20rem;
 }
 .grid #work {
   grid-area: work;
+  width: 20rem;
 }
 .grid #computer-select {
   grid-area: laptops;
+  width: 20rem;
 }
 .grid #computer-info {
   grid-area: selected;
+  display: flex;
+}
+.grid #computer-info .computer-info-price #computer-info-price {
+  font-size: 2rem;
 }
 
 .container {
-  background-color: #FFF;
+  display: grid;
+  background-color: #8193a0;
   padding: 0.5rem;
   width: 100%;
   height: 100%;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  border: 1px solid #72828d;
 }
 .container .title {
   font-size: 1.5rem;
   font-weight: bold;
 }
 .container .balance-container {
+  display: flex;
+  flex-direction: column;
+}
+.container .balance-container div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -47,20 +62,25 @@
 }
 
 button {
-  max-width: 100%;
+  width: 7.5rem;
+  height: 3rem;
   display: inline;
   padding: 0.75rem 1.25rem;
   border: none;
   border-radius: 0.25rem;
-}
-button#bank-button, button#work-button {
-  width: 49.5%;
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
+}
+
+#repay-loan-button,
+#pay-loan-button,
+#loan-button {
+  width: 100%;
 }
 
 body {
@@ -69,6 +89,34 @@ body {
 
 h2 {
   margin-bottom: 0.5rem;
+}
+
+#computer-info-image {
+  width: 15rem;
+  border-radius: 0.25rem;
+}
+.computer-info-desc,
+.computer-info-price {
+  display: grid;
+  margin-left: 1rem;
+}
+.computer-info-desc {
+  width: 100%;
+}
+.computer-info-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-width: fit-content;
+}
+
+select {
+  padding: 0.5rem;
+  font-weight: 500;
+  margin-block-end: 1rem;
+  border-radius: 0.25rem;
+  border: none;
 }
 
 /*# sourceMappingURL=main.css.map */
