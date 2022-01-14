@@ -127,9 +127,10 @@ const handlePayLoanButtonEvent = (element, accountBalance) => {
 const handleRepayLoanButtonEvent = () => {
     if(debtBalance > 0) {
         if(workBalance > 0) {
-            const remainingWorkBalance = (debtBalance - workBalance);
+            const remainingWorkBalance = (debtBalance - workBalance);//(workBalance + (workBalance * interestRate)));
             if(remainingWorkBalance < 0) {
-                workBalance = remainingWorkBalance  * -1;
+                console.log('test')
+                workBalance = (remainingWorkBalance + (remainingWorkBalance  * -1) * interestRate) * - 1; //remainingWorkBalance * -1;//
                 debtBalance = 0;
             } else {
                 debtBalance -= workBalance - (workBalance * interestRate); // Interest rate on repayment of loan.
