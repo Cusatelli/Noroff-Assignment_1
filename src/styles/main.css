@@ -35,13 +35,12 @@
 
 .container {
   display: grid;
-  background-color: #8193a0;
+  background-color: #457b9d;
   padding: 0.5rem;
   width: 100%;
   height: 100%;
-  border-radius: 0.25rem;
+  border-radius: 0.2rem;
   padding: 1rem;
-  border: 1px solid #72828d;
 }
 .container .title {
   font-size: 1.5rem;
@@ -68,6 +67,7 @@ button {
   padding: 0.75rem 1.25rem;
   border: none;
   border-radius: 0.25rem;
+  background-color: #e63946;
 }
 
 .buttons {
@@ -83,7 +83,8 @@ button {
 }
 
 body {
-  background-color: #5a6770;
+  background-color: #1d3557;
+  color: #f1faee;
 }
 
 h2 {
@@ -116,6 +117,8 @@ select {
   margin-block-end: 1rem;
   border-radius: 0.25rem;
   border: none;
+  background-color: #fff;
+  color: #1d3557;
 }
 
 /*# sourceMappingURL=main.css.map */
