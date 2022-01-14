@@ -78,6 +78,7 @@ button {
 }
 
 #pay-loan-button,
+#repay-loan-button,
 #loan-button {
   width: 100%;
 }

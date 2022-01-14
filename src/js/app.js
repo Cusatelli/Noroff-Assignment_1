@@ -63,14 +63,14 @@ const hideBankLoanSection = () => {
     payLoanButtonElement.style.display = "none";
     bankLoanSectionElement.style.display = "none";
     repayLoanButtonElement.style.display = "none";
-    bankButtonElement.style.display = "inline";
+    //bankButtonElement.style.display = "inline";
 }
 
 const showBankLoanSection = () => {
     payLoanButtonElement.style.display = "inline";
     bankLoanSectionElement.style.display = "flex";
     repayLoanButtonElement.style.display = "inline";
-    bankButtonElement.style.display = "none";
+    //bankButtonElement.style.display = "none";
 }
 
 const handleGetLoanButtonEvent = e => {
