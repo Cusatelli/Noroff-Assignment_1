@@ -26,6 +26,8 @@ let workBalance = 0.0;
 let bankBalance = 0.0;
 let debtBalance = 0.0;
 
+const interestRate = 0.1; // 10%
+
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
     .then(response => response.json())
     .then(data => computers = data)
@@ -123,23 +125,14 @@ const handlePayLoanButtonEvent = (element, accountBalance) => {
 }
 
 const handleRepayLoanButtonEvent = () => {
-    console.log(workBalance);
     if(debtBalance > 0) {
-        // let payBackLoanAmount = prompt(
-        //     "You owe the bank: " + debtBalance 
-        //     + "\nPlease enter the amount of money you wish to pay back: "
-        // );
-        // if(payBackLoanAmount === null) { payBackLoanAmount = 0; } // Handle 'Cancel' event
-
         if(workBalance > 0) {
-            // if(payBackLoanAmount > debtBalance) { payBackLoanAmount = debtBalance } // Clamp
             const remainingWorkBalance = (debtBalance - workBalance);
-            console.log(remainingWorkBalance);
             if(remainingWorkBalance < 0) {
                 workBalance = remainingWorkBalance  * -1;
                 debtBalance = 0;
             } else {
-                debtBalance -= workBalance;
+                debtBalance -= workBalance - (workBalance * interestRate); // Interest rate on repayment of loan.
                 workBalance = 0;
             }
 
@@ -161,9 +154,9 @@ const handleWorkButtonEvent = e => {
 
 const handleBankButtonEvent = e => {
     if(debtBalance > 0) {
-        const tax = workBalance * 0.1; // 10% tax
-        debtBalance -= tax;
-        workBalance -= tax;
+        const interest = workBalance * interestRate; // 10% tax
+        debtBalance -= interest;
+        workBalance -= interest;
         if(debtBalance < 0) {
             workBalance += debtBalance; // Add remaining back before sending to bank.
             debtBalance = 0;
