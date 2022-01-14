@@ -1,18 +1,22 @@
 const bankBalanceElement = document.getElementById('bank-balance');
+const bankLoanElement = document.getElementById('bank-loan');
+const bankLoanSectionElement = document.getElementById('loan-section');
 const workBalanceElement = document.getElementById('work-balance');
 const computerDropdownElement = document.getElementById("dropdown");
 
 const computerInfoNameElement = document.getElementById('computer-info-name');
 const computerInfoDescElement = document.getElementById('computer-info-desc');
 const computerInfoPriceElement = document.getElementById('computer-info-price');
+const computerInfoImageElement = document.getElementById('computer-info-image');
+
+const computerSelectInfoElement = document.getElementById("computer-select-info");
 
 const loanButtonElement = document.getElementById("loan-button");
 const payLoanButtonElement = document.getElementById("pay-loan-button");
+const repayLoanButtonElement = document.getElementById("repay-loan-button");
 const bankButtonElement = document.getElementById("bank-button");
 const workButtonElement = document.getElementById("work-button");
 const buyButtonElement = document.getElementById("buy-button");
-
-const computerSelectInfoElement = document.getElementById("computer-select-info");
 
 let computers = [];
 let currentComputerIndex = 0;
@@ -21,8 +25,6 @@ let totalPrice = 0.0;
 let workBalance = 0.0;
 let bankBalance = 0.0;
 let debtBalance = 0.0;
-
-payLoanButtonElement.style.display = "none";
 
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
     .then(response => response.json())
@@ -37,6 +39,7 @@ const setComputerInfo = (index) => {
     computerInfoNameElement.innerText = computers[index].title;
     computerInfoDescElement.innerText = computers[index].description;
     computerInfoPriceElement.innerText = computers[index].price + " kr";
+    computerInfoImageElement.src = "https://noroff-komputer-store-api.herokuapp.com/" + computers[index].image;
 }
 
 const addComputerToDropdown = (computer) => {
@@ -54,6 +57,18 @@ const addComputerToDropdown = (computer) => {
     setComputerInfo(0);
 }
 
+const hideBankLoanSection = () => {
+    payLoanButtonElement.style.display = "none";
+    bankLoanSectionElement.style.display = "none";
+    repayLoanButtonElement.style.display = "none";
+}
+
+const showBankLoanSection = () => {
+    payLoanButtonElement.style.display = "inline";
+    bankLoanSectionElement.style.display = "flex";
+    repayLoanButtonElement.style.display = "inline";
+}
+
 const handleGetLoanButtonEvent = e => {
     if(debtBalance <= 0) {
         const askLoanSum = prompt("Please enter the amount of money you wish to loan: ");
@@ -61,8 +76,9 @@ const handleGetLoanButtonEvent = e => {
             debtBalance = parseFloat(askLoanSum);
             bankBalance += parseFloat(debtBalance);
             setBalance(bankBalanceElement, bankBalance);
+            setBalance(bankLoanElement, debtBalance);
 
-            payLoanButtonElement.style.display = "inline";
+            showBankLoanSection();
         } else {
             alert(
                 "Sorry, you need to have at least half the amount you're asking for."
@@ -74,12 +90,30 @@ const handleGetLoanButtonEvent = e => {
     }
 }
 
-const handlePayLoanButtonEvent = e => {
-    alert("You owe the bank: " + debtBalance);
-}
-
 const setBalance = (element, amount) => {
     element.innerText = amount + " kr";
+}
+
+const handlePayLoanButtonEvent = (element, accountBalance) => {
+    if(debtBalance > 0) {
+        let payBackLoanAmount = prompt(
+            "You owe the bank: " + debtBalance 
+            + "\nPlease enter the amount of money you wish to pay back: "
+        );
+        if(payBackLoanAmount <= accountBalance) {
+            if(payBackLoanAmount > debtBalance) { payBackLoanAmount = debtBalance } // Clamp
+            debtBalance -= payBackLoanAmount;
+            accountBalance -= payBackLoanAmount;
+
+            setBalance(bankLoanElement, debtBalance);
+            setBalance(element, accountBalance);
+
+            if(debtBalance <= 0) {
+                hideBankLoanSection();
+            }
+        }
+    }
+    return accountBalance;
 }
 
 const handleWorkButtonEvent = e => {
@@ -88,6 +122,20 @@ const handleWorkButtonEvent = e => {
 }
 
 const handleBankButtonEvent = e => {
+    if(debtBalance > 0) {
+        const tax = workBalance * 0.1; // 10% tax
+        debtBalance -= tax;
+        workBalance -= tax;
+        if(debtBalance < 0) {
+            workBalance += debtBalance; // Add remaining back before sending to bank.
+            debtBalance = 0;
+        }
+        
+        setBalance(bankLoanElement, debtBalance);
+    }
+
+    if(debtBalance <= 0) { hideBankLoanSection(); }
+
     bankBalance += workBalance;
     workBalance = 0;
     setBalance(workBalanceElement, workBalance);
@@ -99,6 +147,12 @@ const handleBuyNowButtonEvent = e => {
     if(currentComputerPrice <= bankBalance) {
         bankBalance -= currentComputerPrice;
         setBalance(bankBalanceElement, bankBalance);
+        alert(
+            "Thank you for purchasing:\n"
+            + "'" + computers[currentComputerIndex].title + "'!"
+            + "\n\nYour remaining funds: " + bankBalance + " kr"
+            + "\n\nWelcome back!"
+        );
     } else {
         alert(
             "You can't buy this computer!"
@@ -123,7 +177,10 @@ const handleDropdownChangeEvent = e => {
 
 computerDropdownElement.addEventListener("change", handleDropdownChangeEvent);
 loanButtonElement.addEventListener("click", handleGetLoanButtonEvent);
-payLoanButtonElement.addEventListener("click", handlePayLoanButtonEvent);
+payLoanButtonElement.addEventListener("click", () => bankBalance = handlePayLoanButtonEvent(bankBalanceElement, bankBalance));
+repayLoanButtonElement.addEventListener("click", () => workBalance = handlePayLoanButtonEvent(workBalanceElement, workBalance));
 bankButtonElement.addEventListener("click", handleBankButtonEvent);
 workButtonElement.addEventListener("click", handleWorkButtonEvent);
 buyButtonElement.addEventListener("click", handleBuyNowButtonEvent);
+
+hideBankLoanSection();
