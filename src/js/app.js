@@ -120,6 +120,38 @@ const handlePayLoanButtonEvent = (element, accountBalance) => {
     return accountBalance;
 }
 
+const handleRepayLoanButtonEvent = () => {
+    console.log(workBalance);
+    if(debtBalance > 0) {
+        // let payBackLoanAmount = prompt(
+        //     "You owe the bank: " + debtBalance 
+        //     + "\nPlease enter the amount of money you wish to pay back: "
+        // );
+        // if(payBackLoanAmount === null) { payBackLoanAmount = 0; } // Handle 'Cancel' event
+
+        if(workBalance > 0) {
+            // if(payBackLoanAmount > debtBalance) { payBackLoanAmount = debtBalance } // Clamp
+            const remainingWorkBalance = (debtBalance - workBalance);
+            console.log(remainingWorkBalance);
+            if(remainingWorkBalance < 0) {
+                workBalance = remainingWorkBalance  * -1;
+                debtBalance = 0;
+            } else {
+                debtBalance -= workBalance;
+                workBalance = 0;
+            }
+
+            setBalance(bankLoanElement, debtBalance);
+            setBalance(workBalanceElement, workBalance);
+
+            if(debtBalance <= 0) {
+                hideBankLoanSection();
+            }
+        }
+    }
+    return workBalance;
+}
+
 const handleWorkButtonEvent = e => {
     workBalance += 100;
     setBalance(workBalanceElement, workBalance);
@@ -182,7 +214,8 @@ const handleDropdownChangeEvent = e => {
 computerDropdownElement.addEventListener("change", handleDropdownChangeEvent);
 loanButtonElement.addEventListener("click", handleGetLoanButtonEvent);
 payLoanButtonElement.addEventListener("click", () => bankBalance = handlePayLoanButtonEvent(bankBalanceElement, bankBalance));
-repayLoanButtonElement.addEventListener("click", () => workBalance = handlePayLoanButtonEvent(workBalanceElement, workBalance));
+// repayLoanButtonElement.addEventListener("click", () => workBalance = handlePayLoanButtonEvent(workBalanceElement, workBalance));
+repayLoanButtonElement.addEventListener("click", handleRepayLoanButtonEvent);
 bankButtonElement.addEventListener("click", handleBankButtonEvent);
 workButtonElement.addEventListener("click", handleWorkButtonEvent);
 buyButtonElement.addEventListener("click", handleBuyNowButtonEvent);
