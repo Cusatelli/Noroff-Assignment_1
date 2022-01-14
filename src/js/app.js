@@ -72,6 +72,8 @@ const showBankLoanSection = () => {
 const handleGetLoanButtonEvent = e => {
     if(debtBalance <= 0) {
         const askLoanSum = prompt("Please enter the amount of money you wish to loan: ");
+        if(askLoanSum === null) { askLoanSum = 0; } // Handle 'Cancel' event
+
         if(askLoanSum <= bankBalance * 2) {
             debtBalance = parseFloat(askLoanSum);
             bankBalance += parseFloat(debtBalance);
@@ -100,6 +102,8 @@ const handlePayLoanButtonEvent = (element, accountBalance) => {
             "You owe the bank: " + debtBalance 
             + "\nPlease enter the amount of money you wish to pay back: "
         );
+        if(payBackLoanAmount === null) { payBackLoanAmount = 0; } // Handle 'Cancel' event
+
         if(payBackLoanAmount <= accountBalance) {
             if(payBackLoanAmount > debtBalance) { payBackLoanAmount = debtBalance } // Clamp
             debtBalance -= payBackLoanAmount;
