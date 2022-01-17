@@ -20,8 +20,6 @@ const buyButtonElement = document.getElementById("buy-button");
 
 let computers = [];
 let currentComputerIndex = 0;
-let cart = [];
-let totalPrice = 0.0;
 let workBalance = 0.0;
 let bankBalance = 0.0;
 let debtBalance = 0.0;
