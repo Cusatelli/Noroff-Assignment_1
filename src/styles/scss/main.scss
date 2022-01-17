@@ -5,9 +5,20 @@
 @import '1-layout/buttons';
 
 body {
-    background-color: rgb(90, 103, 112);
+    background-color: #1d3557;
+    color: #f1faee;
 }
 
 h2 {
     margin-bottom: 0.5rem;
+}
+
+select {
+    padding: 0.5rem;
+    font-weight: 500;
+    margin-block-end: 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #fff;
+    color: #1d3557;
 }

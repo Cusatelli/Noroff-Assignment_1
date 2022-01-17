@@ -6,7 +6,7 @@
 }
 
 .grid {
-  width: 60rem;
+  width: fit-content;
   margin-inline: auto;
   margin-block-start: 2rem;
   display: grid;
@@ -31,6 +31,25 @@
 }
 .grid #computer-info .computer-info-price #computer-info-price {
   font-size: 2rem;
+}
+.grid #computer-info-image {
+  width: 15rem;
+  border-radius: 0.25rem;
+}
+.grid .computer-info-desc,
+.grid .computer-info-price {
+  display: grid;
+  margin-left: 1rem;
+}
+.grid .computer-info-desc {
+  width: 100%;
+}
+.grid .computer-info-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-width: fit-content;
 }
 
 .container {
@@ -69,18 +88,17 @@ button {
   border-radius: 0.25rem;
   background-color: #e63946;
 }
+button #pay-loan-button,
+button #repay-loan-button,
+button #loan-button {
+  width: 100%;
+}
 
 .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-}
-
-#pay-loan-button,
-#repay-loan-button,
-#loan-button {
-  width: 100%;
 }
 
 body {
@@ -90,26 +108,6 @@ body {
 
 h2 {
   margin-bottom: 0.5rem;
-}
-
-#computer-info-image {
-  width: 15rem;
-  border-radius: 0.25rem;
-}
-.computer-info-desc,
-.computer-info-price {
-  display: grid;
-  margin-left: 1rem;
-}
-.computer-info-desc {
-  width: 100%;
-}
-.computer-info-price {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  min-width: fit-content;
 }
 
 select {
@@ -122,4 +120,4 @@ select {
   color: #1d3557;
 }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=main2.css.map */

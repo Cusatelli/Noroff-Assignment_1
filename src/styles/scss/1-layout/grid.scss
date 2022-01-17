@@ -12,17 +12,50 @@
 
     #bank {
         grid-area: bank;
+        width: 20rem;
     }
 
     #work {
         grid-area: work;
+        width: 20rem;
     }
 
     #computer-select {
         grid-area: laptops;
+        width: 20rem;
     }
 
     #computer-info {
         grid-area: selected;
+        display: flex;
+
+        .computer-info-price {
+            #computer-info-price {
+                font-size: 2rem;
+            }
+        }
+    }
+
+    #computer-info-image {
+        width: 15rem;
+        border-radius: 0.25rem;
+    }
+    
+    .computer-info-desc,
+    .computer-info-price {
+        display: grid;
+        margin-left: 1rem;
+    }
+
+    .computer-info-desc {
+        width: 100%;
+    }
+    
+    .computer-info-price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        min-width: fit-content;
     }
 }
