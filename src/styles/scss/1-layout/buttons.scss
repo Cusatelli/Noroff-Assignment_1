@@ -7,9 +7,21 @@ button {
 
     padding: 0.75rem 1.25rem;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 0.15rem;
     
-    background-color: #e63946;
+    background-color: #3961e6;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    #pay-loan-button,
+    #repay-loan-button {
+        background-color: #9839e6;
+    }
 
     #pay-loan-button,
     #repay-loan-button,
@@ -18,9 +30,10 @@ button {
     }
 }
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+#bank-button {
+    background-color: #e6e339;
+}
+
+#loan-button {
+    background-color: #3fe639;
 }

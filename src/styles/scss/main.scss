@@ -5,8 +5,8 @@
 @import '1-layout/buttons';
 
 body {
-    background-color: #1d3557;
-    color: #f1faee;
+    background-color: #e9e9e9;
+    color: #131313;
 }
 
 h2 {
@@ -18,7 +18,7 @@ select {
     font-weight: 500;
     margin-block-end: 1rem;
     border-radius: 0.25rem;
-    border: none;
+    border: 1px #000 solid;
     background-color: #fff;
     color: #1d3557;
 }
