@@ -53,6 +53,10 @@ const setComputerInfo = (index) => {
     computerInfoImageElement.src = "https://noroff-komputer-store-api.herokuapp.com/" + computers[index].image; // API + assets/X.png
 }
 
+const round = (number) => {
+    return Number(Math.round(number * 100) / 100);
+}
+
 /**
  * Add a computer to the select element in the document (HTML).
  * Called at start of app initialization.
@@ -106,8 +110,8 @@ const handleGetLoanButtonEvent = event => {
 
         if(askLoanSum <= bankBalance * 2) {
             // Add loan to debt and bank balance
-            debtBalance = parseFloat(askLoanSum);
-            bankBalance += parseFloat(debtBalance);
+            debtBalance = round(parseFloat(askLoanSum));
+            bankBalance += round(parseFloat(debtBalance));
             // Set innerText
             setBalance(bankBalanceElement, bankBalance);
             setBalance(bankLoanElement, debtBalance);
@@ -132,6 +136,7 @@ const handleGetLoanButtonEvent = event => {
  * @param {Number} amount 
  */
 const setBalance = (element, amount) => {
+    if(amount % 1 != 0) amount = amount.toFixed(2);
     element.innerText = amount + " kr";
 }
 
@@ -157,8 +162,8 @@ const handlePayLoanButtonEvent = (element, accountBalance) => {
         if(payBackLoanAmount <= accountBalance) {
             if(payBackLoanAmount > debtBalance) { payBackLoanAmount = debtBalance; } // Clamp
             // Subtract value from balance
-            debtBalance -= payBackLoanAmount;
-            accountBalance -= payBackLoanAmount;
+            debtBalance -= round(payBackLoanAmount);
+            accountBalance -= round(payBackLoanAmount);
 
             // Set innerText elements
             setBalance(bankLoanElement, debtBalance);
@@ -189,10 +194,10 @@ const handleRepayLoanButtonEvent = () => {
             const remainingWorkBalance = (debtBalance - workBalance); // i.e 200kr (loan) 300kr (balance) = -100kr
             if(remainingWorkBalance < 0) { // Has payed too much to bank
                 // Return remaining money and set debt to 0.
-                workBalance = (remainingWorkBalance + (remainingWorkBalance  * -1) * interestRate) * - 1;
+                workBalance = round((remainingWorkBalance + (remainingWorkBalance  * -1) * interestRate) * - 1);
                 debtBalance = 0;
             } else { // Has not payed off loan
-                debtBalance -= workBalance - (workBalance * interestRate); // Interest rate on repayment of loan.
+                debtBalance -= round(workBalance - (workBalance * interestRate)); // Interest rate on repayment of loan.
                 workBalance = 0;
             }
 
@@ -226,10 +231,10 @@ const handleWorkButtonEvent = event => {
 const handleBankButtonEvent = event => {
     if(debtBalance > 0) {
         const interest = workBalance * interestRate; // 10% tax
-        debtBalance -= interest;
-        workBalance -= interest;
+        debtBalance -= round(interest);
+        workBalance -= round(interest);
         if(debtBalance < 0) {
-            workBalance += debtBalance; // Add remaining back before sending to bank.
+            workBalance += round(debtBalance); // Add remaining back before sending to bank.
             debtBalance = 0;
         }
         
@@ -257,7 +262,7 @@ const handleBankButtonEvent = event => {
 const handleBuyNowButtonEvent = event => {
     const currentComputerPrice = computers[currentComputerIndex].price;
     if(currentComputerPrice <= bankBalance) { // If you can afford the computer
-        bankBalance -= currentComputerPrice;
+        bankBalance -= round(currentComputerPrice);
         setBalance(bankBalanceElement, bankBalance);
         // Thank you message
         alert(
